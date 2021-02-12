@@ -1,3 +1,14 @@
+<?php
+
+include('./queries.php');
+
+$object = new Query();
+$response = $object->index();
+
+// echo "<pre>";print_r($response);die;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +22,7 @@
 <body>
 <div class="container">
   <h2>Customer Listing</h2>
+  <a href="/tpsspl-1/core/create.php" class="btn btn-primary" style="margin-bottom: 8px;float: right;">Add</a>
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -19,18 +31,37 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Mode of Payment</th>
-        <th>Created Dat</th>
+        <th>Created Date</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>John</td>
-        <td>john@example.com</td>
-        <td>9803888877</td>
-        <td>cash</td>
-        <td>cash</td>
-      </tr>
+        <?php 
+            $string = '';
+            foreach ($response['data'] as $key => $value) {
+                $string .= '<tr>';
+                    $string .= '<td>';
+                        $string .= ++$key;
+                    $string .= '</td>';
+                    $string .= '<td>';
+                        $string .= $value[1];
+                    $string .= '</td>';
+                    $string .= '<td>';
+                        $string .= $value[2];
+                    $string .= '</td>';
+                    $string .= '<td>';
+                        $string .= $value[3];
+                    $string .= '</td>';
+                    $string .= '<td>';
+                        $string .= $value[5];
+                    $string .= '</td>';
+                    $string .= '<td>';
+                        $string .= $value[8];
+                    $string .= '</td>';
+                $string .= '</tr>';
+            }
+
+            echo $string;
+        ?>
     </tbody>
   </table>
 </div>
