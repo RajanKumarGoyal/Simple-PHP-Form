@@ -40,9 +40,12 @@ class Query {
 
         $response = array();
         if(mysqli_query($GLOBALS['connect'], $sql)){
+
             $response['status'] = 200;
             $response['message'] = 'Records inserted successfully.';
+
         } else{
+
             $response['status'] = 500;
             $response['message'] = "ERROR: Could not able to execute $sql. " . mysqli_error($GLOBALS['connect']);
         }
@@ -50,4 +53,50 @@ class Query {
         return $response;
     }
     
+    function update($data) {
+
+        $id = $data['id'];
+        $cName = $data['cName'];
+        $email = $data['email'];
+        $address = $data['address'];
+        $phone = $data['phone'];
+        $amount = $data['amount'];
+        $modPayment = $data['modPayment'];
+    
+        $sql = "UPDATE customers SET name='$cName', email='$email', address='$address', phone='$phone', amount='$amount', modPayment='$modPayment' WHERE id=$id";
+    
+        $response = array();
+        if(mysqli_query($GLOBALS['connect'], $sql)){
+
+            $response['status'] = 200;
+            $response['message'] = 'Records updated successfully.';
+
+        } else{
+
+            $response['status'] = 500;
+            $response['message'] = "ERROR: Could not able to execute $sql. " . mysqli_error($GLOBALS['connect']);
+        }
+
+        return $response;
+    }
+}
+
+
+if(isset($_POST['submit'])) 
+{
+    $object = new Query();
+    $response = $object->create($_POST);
+
+    $_SESSION['message'] = $response['message']; 
+    header('location: index.php');
+}
+
+if (isset($_POST['update'])) {
+
+    $object = new Query();
+    $response = $object->update($_POST);
+
+	$_SESSION['message'] = $response['message']; 
+    // header('location: form.php?edit='.$_POST['id']);
+    header('location: index.php');
 }
