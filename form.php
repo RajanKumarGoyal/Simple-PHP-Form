@@ -16,6 +16,7 @@ if (isset($_GET['edit'])) {
         $phone = $n['phone'];
         $amount = $n['amount'];
         $address = $n['address'];
+        $particulars = $n['particulars'];
         $modPayment = $n['modPayment'];
     }
 }
@@ -36,28 +37,35 @@ if (isset($_GET['del'])) {
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-    <h2>Submit (Customer) Form</h2>
+
+    <?php if ($update == true): ?>
+        <h2>Edit (Customer) Form</h2>
+    <?php else: ?>
+        <h2>Submit (Customer) Form</h2>
+    <?php endif ?>
+
     <form action="queries.php" method="post">
 
         <input type="hidden" name="id" value="<?php echo $id; ?>">
 
         <div class="form-group">
             <label for="cName">Customer Name:</label>
-            <input type="text" class="form-control" placeholder="Enter Customer Name" name="cName" value="<?php echo $cName; ?>">
+            <input type="text" class="form-control" placeholder="Enter Customer Name" name="cName" value="<?php echo $cName; ?>" required>
         </div>
         <div class="form-group">
             <label for="cName">Customer Email:</label>
-            <input type="email" class="form-control" placeholder="Enter Customer Email" name="email" value="<?php echo $email; ?>">
+            <input type="email" class="form-control" placeholder="Enter Customer Email" name="email" value="<?php echo $email; ?>" required>
         </div>
         <div class="form-group">
             <label for="phone">Phone:</label>
-            <input type="number" class="form-control" placeholder="Enter Phone Number" name="phone" value="<?php echo $phone; ?>">
+            <input type="number" class="form-control" placeholder="Enter Phone Number" name="phone" value="<?php echo $phone; ?>" required>
         </div>
         <div class="form-group">
             <label for="address">Address:</label>
@@ -66,8 +74,14 @@ if (isset($_GET['del'])) {
             </textarea>
         </div>
         <div class="form-group">
+            <label for="address">Particulars:</label>
+            <textarea name="particulars" rows="4" cols="50" class="form-control" placeholder="Enter Particulars">
+                <?php echo strip_tags($particulars); ?>
+            </textarea>
+        </div>
+        <div class="form-group">
             <label for="amount">Amount:</label>
-            <input type="number" class="form-control" placeholder="Enter Amount" name="amount" value="<?php echo $amount; ?>">
+            <input type="number" class="form-control" placeholder="Enter Amount" name="amount" value="<?php echo $amount; ?>" required>
         </div>
         <div class="form-group">
             <label for="modPayment">Mode of Payment:</label>
@@ -78,10 +92,12 @@ if (isset($_GET['del'])) {
         </div>
 
         <?php if ($update == true): ?>
-            <input type="submit" class="btn btn-default" name="update" value="Update">
+            <input type="submit" class="btn btn-primary" name="update" value="Update">
         <?php else: ?>
-            <input type="submit" class="btn btn-default" name="submit" value="Save">
+            <input type="submit" class="btn btn-info" name="submit" value="Save">
         <?php endif ?>
+
+        <a href="/tpsspl-1/core/index.php" class="btn btn-default">Back</a>            
 
     </form>
     </div>

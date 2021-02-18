@@ -35,8 +35,9 @@ class Query {
         $amount = $data['amount']; 
         $modPayment = $data['modPayment']; 
         $invoice = rand(10, 1000000);
+        $particulars = $data['particulars'];
 
-        $sql = "INSERT INTO customers (name, email, phone, address, amount, modPayment, invoiceNumber ) VALUES ('$cName', '$email', '$phone', '$address','$amount','$modPayment', '$invoice')";
+        $sql = "INSERT INTO customers (name, email, phone, address, particulars, amount, modPayment, invoiceNumber ) VALUES ('$cName', '$email', '$phone', '$address', '$particulars', '$amount','$modPayment', '$invoice')";
 
         $response = array();
         if(mysqli_query($GLOBALS['connect'], $sql)){
@@ -62,8 +63,9 @@ class Query {
         $phone = $data['phone'];
         $amount = $data['amount'];
         $modPayment = $data['modPayment'];
+        $particulars = $data['particulars'];
     
-        $sql = "UPDATE customers SET name='$cName', email='$email', address='$address', phone='$phone', amount='$amount', modPayment='$modPayment' WHERE id=$id";
+        $sql = "UPDATE customers SET name='$cName', email='$email', address='$address', particulars='$particulars', phone='$phone', amount='$amount', modPayment='$modPayment' WHERE id=$id";
     
         $response = array();
         if(mysqli_query($GLOBALS['connect'], $sql)){
