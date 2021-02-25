@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once('./connection.php');
 
 class Query {
@@ -7,8 +11,9 @@ class Query {
     function index() {
      
         $sql = mysqli_query($GLOBALS['connect'], "SELECT * FROM `customers`");
-        $records = $sql->fetch_all();
 
+        $records = $sql->fetch_all();
+        
         $response = array();
         if(count($records)){
 
@@ -19,7 +24,8 @@ class Query {
         } else{
             
             $response['status'] = 500;
-            $response['message'] = "ERROR: Could not able to execute $sql. " . mysqli_error($GLOBALS['connect']);
+            $response['message'] = "ERROR occured!";
+            $response['data'] = array();
         }
 
         return $response;
@@ -37,7 +43,11 @@ class Query {
         $invoice = rand(10, 1000000);
         $particulars = $data['particulars'];
 
-        $sql = "INSERT INTO customers (name, email, phone, address, particulars, amount, modPayment, invoiceNumber ) VALUES ('$cName', '$email', '$phone', '$address', '$particulars', '$amount','$modPayment', '$invoice')";
+        $margin = $data['margin'];
+        $gstNumber = $data['gstNumber'];
+        $total = $amount + $margin + ($margin * (18/100));
+
+        $sql = "INSERT INTO customers (name, email, phone, address, particulars, amount, modPayment, invoiceNumber, margin, gstNumber, total ) VALUES ('$cName', '$email', '$phone', '$address', '$particulars', '$amount','$modPayment', '$invoice', '$margin', '$gstNumber', '$total')";
 
         $response = array();
         if(mysqli_query($GLOBALS['connect'], $sql)){
@@ -65,7 +75,11 @@ class Query {
         $modPayment = $data['modPayment'];
         $particulars = $data['particulars'];
     
-        $sql = "UPDATE customers SET name='$cName', email='$email', address='$address', particulars='$particulars', phone='$phone', amount='$amount', modPayment='$modPayment' WHERE id=$id";
+        $margin = $data['margin'];
+        $gstNumber = $data['gstNumber'];
+        $total = $amount + $margin + ($margin * (18/100));
+
+        $sql = "UPDATE customers SET name='$cName', email='$email', address='$address', particulars='$particulars', phone='$phone', amount='$amount', modPayment='$modPayment', margin='$margin', gstNumber='$gstNumber', total='$total' WHERE id=$id";
     
         $response = array();
         if(mysqli_query($GLOBALS['connect'], $sql)){

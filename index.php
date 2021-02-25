@@ -5,6 +5,8 @@ include('./queries.php');
 $object = new Query();
 $response = $object->index();
 
+// echo "<pre>";print_r($response);die;
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +44,10 @@ $response = $object->index();
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Invoice</th>
-                    <th>Mode of Payment</th>
+                    <th>Amount</th>
+                    <th>Margin</th>
+                    <th>Total</th>
+                    <th>MOP</th>
                     <th>Created Date</th>
                     <th>Action(s)</th>
                 </tr>
@@ -50,38 +55,58 @@ $response = $object->index();
             <tbody>
                 <?php 
                     $string = '';
-                    foreach ($response['data'] as $key => $value) {
 
-                        // echo "<pre>";print_r($value);die;   
+                    if (empty($response['data'])) {
 
                         $string .= '<tr>';
-                            $string .= '<td>';
-                                $string .= ++$key;
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= $value[1];
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= $value[2];
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= $value[3];
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= $value[7];
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= $value[6];
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $date = date_create($value[9]);
-                                $string .= date_format($date, "Y/m/d H:i:s");
-                            $string .= '</td>';
-                            $string .= '<td>';
-                                $string .= '<a href="form.php?edit='. $value[0] .'" class="btn btn-sm btn-primary mr-1 mb-1">Edit</a>';
-                                $string .= '<a href="form.php?del='. $value[0] .'" class="btn btn-sm btn-danger mb-1">Delete</a>';
-                            $string .= '</td>';
-                        $string .= '</tr>';
+                            $string .= '<td colspan="11" class="text-center"><h2>No Customer Found!</h2></td>';
+                        $string .= '</tr>';                            
+
+                    } else {
+
+                        foreach ($response['data'] as $key => $value) {
+
+                            // echo "<pre>";print_r($value);die;   
+    
+                            $string .= '<tr>';
+                                $string .= '<td>';
+                                    $string .= ++$key;
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[1];
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[2];
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[3];
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[8]; // Invoice
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[7]; // Amount
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[11]; // Margin
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= $value[10]; // total
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= ucwords($value[6]);
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $date = date_create($value[12]);
+                                    $string .= date_format($date, "Y/m/d");
+                                $string .= '</td>';
+                                $string .= '<td>';
+                                    $string .= '<a href="form.php?edit='. $value[0] .'" class="btn btn-sm btn-primary mr-1 mb-1">Edit</a>';
+                                    $string .= '<a href="form.php?del='. $value[0] .'" class="btn btn-sm btn-danger mb-1">Delete</a>';
+                                $string .= '</td>';
+                            $string .= '</tr>';
+                        }
+
                     }
 
                     echo $string;

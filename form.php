@@ -18,6 +18,10 @@ if (isset($_GET['edit'])) {
         $address = $n['address'];
         $particulars = $n['particulars'];
         $modPayment = $n['modPayment'];
+
+        $margin = $n['margin'];
+        $gstNumber = $n['gstNumber'];
+
     }
 }
 
@@ -82,6 +86,14 @@ if (isset($_GET['del'])) {
         <div class="form-group">
             <label for="amount">Amount:</label>
             <input type="number" class="form-control" placeholder="Enter Amount" name="amount" value="<?php echo $amount; ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Margin:</label>
+            <input type="number" class="form-control" placeholder="Enter Margin" name="margin" value="<?php echo $margin; ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">GST Number:</label>
+            <input type="text" class="form-control" placeholder="Enter GST Number" name="gstNumber" value="<?php echo $gstNumber; ?>">
         </div>
         <div class="form-group">
             <label for="modPayment">Mode of Payment:</label>
