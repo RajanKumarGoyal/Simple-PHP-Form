@@ -12,7 +12,7 @@ class Query {
      
         $sql = mysqli_query($GLOBALS['connect'], "SELECT * FROM `customers`");
 
-        $records = $sql->fetch_all();
+        $records = $sql->fetch_all(MYSQLI_ASSOC);
         
         $response = array();
         if(count($records)){
