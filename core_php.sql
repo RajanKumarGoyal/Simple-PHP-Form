@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 17, 2021 at 10:40 AM
+-- Generation Time: Mar 10, 2021 at 01:43 PM
 -- Server version: 5.7.33-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
@@ -32,9 +32,13 @@ CREATE TABLE `customers` (
   `email` varchar(50) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `address` text NOT NULL,
+  `particulars` text NOT NULL,
   `modPayment` varchar(50) NOT NULL,
   `amount` int(11) NOT NULL,
   `invoiceNumber` int(11) NOT NULL,
+  `gstNumber` varchar(50) NOT NULL,
+  `total` int(11) NOT NULL,
+  `margin` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42,12 +46,8 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `address`, `modPayment`, `amount`, `invoiceNumber`, `created_at`) VALUES
-(1, 'Rajan', 'rajankumartp@gmail.com', '9803888877', 'E-237, Green Tower Mohali', 'cash', 20, 434762, '2021-02-11 02:56:47'),
-(2, 'Prem', 'premtpss@gmail.com', '9856612560', 'E-237 Green Tower', 'cash', 30, 669868, '2021-02-11 03:08:05'),
-(3, 'Aman', 'amantp@gmail.com', '9856612560', 'E-237, Green Tower', 'online', 50, 953383, '2021-02-11 03:24:27'),
-(5, 'Gurpreet', 'gurpreet@gmail.com', '9856612560', 'E-237, Green Tower', 'cash', 50, 694387, '2021-02-11 04:29:19'),
-(6, 'Ayush', 'ayushtpss@gmail.com', '9856612560', '                                E-237, Green Tower Mohali                        ', 'cash', 120, 488308, '2021-02-17 03:19:20');
+INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `address`, `particulars`, `modPayment`, `amount`, `invoiceNumber`, `gstNumber`, `total`, `margin`, `created_at`) VALUES
+(1, 'Rajan', 'rajankumartpss@gmail.com', '9803888877', 'E-237, Green Tower                            ', 'Nothings                            ', 'cash', 1000, 350663, 'GST125635', 1118, 100, '2021-03-10 03:24:34');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +67,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
